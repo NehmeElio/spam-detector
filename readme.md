@@ -1,0 +1,1 @@
+A simple spam detector
