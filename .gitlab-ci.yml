@@ -72,8 +72,9 @@ deploy:
     # Verify Koyeb CLI installation
     - koyeb --help  # Use the help command to verify if the CLI is working
   script:
-    # Use the --config flag to explicitly specify the configuration file
-    - koyeb service redeploy spam-detector-backend/backend --config ~/.koyeb/koyeb.yaml
-    - koyeb service redeploy spam-detector-frontend/frontend --config ~/.koyeb/koyeb.yaml
+    # Redeploy the backend and frontend services with the --token flag
+    - koyeb service redeploy spam-detector-backend/backend --token $KOYEB_API_KEY --config ~/.koyeb/koyeb.yaml
+    - koyeb service redeploy spam-detector-frontend/frontend --token $KOYEB_API_KEY --config ~/.koyeb/koyeb.yaml
   only:
     - main
+
