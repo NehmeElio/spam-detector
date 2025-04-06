@@ -73,8 +73,8 @@ deploy:
     - koyeb --help  # Use the help command to verify if the CLI is working
   script:
     # Redeploy the backend and frontend services with the --token flag
-    - koyeb service redeploy spam-detector-backend --token $KOYEB_API_KEY --config ~/.koyeb/koyeb.yaml
-    - koyeb service redeploy spam-detector-frontend --token $KOYEB_API_KEY --config ~/.koyeb/koyeb.yaml
+    - koyeb service redeploy social-gennie/spam-detector-backend --token $KOYEB_API_KEY --config ~/.koyeb/koyeb.yaml
+    - koyeb service redeploy dying-cathrin/spam-detector-frontend --token $KOYEB_API_KEY --config ~/.koyeb/koyeb.yaml
   only:
     - main
 
