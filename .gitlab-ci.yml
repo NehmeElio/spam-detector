@@ -57,13 +57,13 @@ variables:
 
 deploy:
   stage: deploy
-  image: koyeb/koyeb-cli:latest
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache curl bash
+    - curl -L "https://storage.googleapis.com/koyeb-cli-releases/release/linux/amd64/latest/koyeb" -o /usr/local/bin/koyeb
+    - chmod +x /usr/local/bin/koyeb
   script:
-    - koyeb service list
-    # Login to Koyeb with the API key
     - koyeb login --token $KOYEB_API_KEY
-    
-    # Update existing Koyeb services with the latest images
     - koyeb service redeploy spam-detector-backend/backend
     - koyeb service redeploy spam-detector-frontend/frontend
   only:
