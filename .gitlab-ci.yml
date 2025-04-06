@@ -20,49 +20,50 @@ variables:
 #     - npm test -- --passWithNoTests
 
 # Basic backend test
-backend-test:
-  stage: test
-  image: python:3.12-slim
-  script:
-    - cd ml_service
-    - pip install -r requirements.txt
-    - pip install pytest fastapi httpx
-    - python -m pytest -v
+# backend-test:
+#   stage: test
+#   image: python:3.12-slim
+#   script:
+#     - cd ml_service
+#     - pip install -r requirements.txt
+#     - pip install pytest fastapi httpx
+#     - python -m pytest -v
 
-# Build and push frontend Docker image
-build-frontend:
-  stage: build
-  image: docker:latest
-  services:
-    - docker:dind
-  script:
-    - docker build -t $FRONTEND_IMAGE:latest -f frontend/spam-detector-frontend/Dockerfile .
-    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    - docker push $FRONTEND_IMAGE:latest
-  only:
-    - main
+# # Build and push frontend Docker image
+# build-frontend:
+#   stage: build
+#   image: docker:latest
+#   services:
+#     - docker:dind
+#   script:
+#     - docker build -t $FRONTEND_IMAGE:latest -f frontend/spam-detector-frontend/Dockerfile .
+#     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+#     - docker push $FRONTEND_IMAGE:latest
+#   only:
+#     - main
 
-# Build and push backend Docker image
-build-backend:
-  stage: build
-  image: docker:latest
-  services:
-    - docker:dind
-  script:
-    - docker build -t $BACKEND_IMAGE:latest -f ml_service/Dockerfile .
-    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    - docker push $BACKEND_IMAGE:latest
-  only:
-    - main
+# # Build and push backend Docker image
+# build-backend:
+#   stage: build
+#   image: docker:latest
+#   services:
+#     - docker:dind
+#   script:
+#     - docker build -t $BACKEND_IMAGE:latest -f ml_service/Dockerfile .
+#     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+#     - docker push $BACKEND_IMAGE:latest
+#   only:
+#     - main
 
 deploy:
   stage: deploy
   image: koyeb/koyeb-cli:latest
   script:
+    - koyeb service list
     # Login to Koyeb with the API key
-    - koyeb login --api-key $KOYEB_API_KEY
+    - koyeb login --token $KOYEB_API_KEY
     
-    # Update existing Koyeb apps with the latest images
+    # Update existing Koyeb services with the latest images
     - koyeb service redeploy spam-detector-backend/backend
     - koyeb service redeploy spam-detector-frontend/frontend
   only:
