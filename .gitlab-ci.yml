@@ -55,12 +55,17 @@ build-backend:
   only:
     - main
 
-# Simple deploy
 deploy:
   stage: deploy
-  image: alpine:latest
+  image: koyeb/koyeb-cli:latest  # Koyeb CLI to deploy to Koyeb
   script:
-    - echo "Deploying to server..."
-    # Add simple deployment script or commands here
+    # Install Koyeb CLI
+    - curl -sSL https://cli.koyeb.app/install.sh | bash
+    # Login to Koyeb using the API key
+    - koyeb login --api-key $KOYEB_API_KEY
+    # Update your Koyeb backend app with the latest backend image
+    - koyeb apps deploy --app spam-detector-backend --image $BACKEND_IMAGE_NAME
+    # Update your Koyeb frontend app with the latest frontend image
+    - koyeb apps deploy --app spam-detector-backend --image $FRONTEND_IMAGE_NAME
   only:
-    - main
+    - main  # Only deploy from the main branch (change this if needed)
