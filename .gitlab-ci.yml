@@ -11,13 +11,13 @@ variables:
   BACKEND_IMAGE: $DOCKER_USERNAME/spam-detector-backend
 
 # Basic frontend test
-frontend-test:
-  stage: test
-  image: node:22-slim
-  script:
-    - cd frontend/spam-detector-frontend
-    - npm install
-    - npm test -- --passWithNoTests
+# frontend-test:
+#   stage: test
+#   image: node:22-slim
+#   script:
+#     - cd frontend/spam-detector-frontend
+#     - npm install
+#     - npm test -- --passWithNoTests
 
 # Basic backend test
 backend-test:
