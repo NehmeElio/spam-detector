@@ -60,10 +60,16 @@ deploy:
   image: alpine:latest
   before_script:
     - apk add --no-cache curl bash
-    - curl -L "https://storage.googleapis.com/koyeb-cli-releases/release/linux/amd64/latest/koyeb" -o /usr/local/bin/koyeb
+    # Download the Koyeb CLI from the official URL
+    - curl -sSL "https://storage.googleapis.com/koyeb-cli-releases/release/linux/amd64/latest/koyeb" -o /usr/local/bin/koyeb
+    # Check if the Koyeb binary was downloaded successfully
+    - ls -l /usr/local/bin/koyeb
+    # Make sure the binary is executable
     - chmod +x /usr/local/bin/koyeb
   script:
+    # Login to Koyeb with the API key
     - koyeb login --token $KOYEB_API_KEY
+    # Redeploy the backend and frontend
     - koyeb service redeploy spam-detector-backend/backend
     - koyeb service redeploy spam-detector-frontend/frontend
   only:
