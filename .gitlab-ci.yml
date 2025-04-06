@@ -36,7 +36,7 @@ build-frontend:
   services:
     - docker:dind
   script:
-    - docker build -t $FRONTEND_IMAGE:latest -f frontend/Dockerfile .
+    - docker build -t $FRONTEND_IMAGE:latest -f frontend/spam-detector-frontend/Dockerfile .
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - docker push $FRONTEND_IMAGE:latest
   only:
