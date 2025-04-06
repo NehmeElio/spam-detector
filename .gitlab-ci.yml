@@ -59,13 +59,13 @@ deploy:
   stage: deploy
   image: koyeb/koyeb-cli:latest  # Koyeb CLI to deploy to Koyeb
   script:
-    # Install Koyeb CLI
-    - curl -sSL https://cli.koyeb.app/install.sh | bash
-    # Login to Koyeb using the API key
-    - koyeb login --api-key $KOYEB_API_KEY
+    # Login to Koyeb with the API key
+    - koyeb login --api-key $KOYEB_API_KEY  # Login using the API key
+    
     # Update your Koyeb backend app with the latest backend image
     - koyeb apps deploy --app spam-detector-backend --image $BACKEND_IMAGE_NAME
+    
     # Update your Koyeb frontend app with the latest frontend image
-    - koyeb apps deploy --app spam-detector-frontend--image $FRONTEND_IMAGE_NAME
+    - koyeb apps deploy --app spam-detector-frontend --image $FRONTEND_IMAGE_NAME
   only:
-    - main  # Only deploy from the main branch (change this if needed)
+    - main 
