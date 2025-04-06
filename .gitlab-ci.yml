@@ -61,11 +61,9 @@ deploy:
   before_script:
     - apk add --no-cache curl bash
     # Download the Koyeb CLI binary with verbose logging to verify the download
-    - curl -v -sSL "https://storage.googleapis.com/koyeb-cli-releases/release/linux/amd64/latest/koyeb" -o /usr/local/bin/koyeb
+    - curl -fsSL https://raw.githubusercontent.com/koyeb/koyeb-cli/master/install.sh | sh
     # Check if the file is actually a binary, not an HTML page
-    - ls -l /usr/local/bin/koyeb
-    # If it's a binary, set the executable permission
-    - chmod +x /usr/local/bin/koyeb
+
   script:
     # Login to Koyeb with the API key
     - koyeb login --token $KOYEB_API_KEY
