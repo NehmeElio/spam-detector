@@ -74,7 +74,6 @@ deploy:
  # This will verify if the Koyeb CLI is accessible
   script:
     # Login to Koyeb with the API key
-    - koyeb login --token $KOYEB_API_KEY
     # Redeploy the backend and frontend
     - koyeb service redeploy spam-detector-backend/backend
     - koyeb service redeploy spam-detector-frontend/frontend
