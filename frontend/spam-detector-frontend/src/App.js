@@ -17,7 +17,7 @@ function App() {
     setPrediction('');
     
     try {
-      const response = await axios.post('http://localhost:3000/predict', {
+      const response = await axios.post('${process.env.REACT_APP_BACKEND_URL}:3000/predict', {
         text: text,
       });
       setPrediction(response.data.prediction);
