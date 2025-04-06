@@ -1,0 +1,8 @@
+[core]
+    remote = spam-remote
+['remote "spam-remote"']
+    url = gdrive://1EG44PcBXYR4E4C7YqWMC014LUhWxy6sH
+    gdrive_use_service_account = true
+    gdrive_client_id = 1090062603741-m3e3rh9eluhlu9hfdpjrvahhp3u71fsf.apps.googleusercontent.com
+    gdrive_client_secret = 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
+    gdrive_service_account_json_file_path = C:\Users\elion\Downloads\driven-saga-448315-q1-a25933c10e76.json

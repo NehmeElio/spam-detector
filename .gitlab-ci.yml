@@ -1,0 +1,66 @@
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  DOCKER_REGISTRY: docker.io
+  DOCKER_USERNAME: $DOCKERHUB_USERNAME
+  DOCKER_PASSWORD: $DOCKERHUB_PASSWORD
+  FRONTEND_IMAGE: $DOCKER_USERNAME/spam-detector-frontend
+  BACKEND_IMAGE: $DOCKER_USERNAME/spam-detector-backend
+
+# Basic frontend test
+frontend-test:
+  stage: test
+  image: node:22-slim
+  script:
+    - cd frontend/spam-detector-frontend
+    - npm install
+    - npm test
+
+# Basic backend test
+backend-test:
+  stage: test
+  image: python:3.12-slim
+  script:
+    - cd ml_service
+    - pip install -r requirements.txt
+    - pip install pytest
+    - pytest
+
+# Build and push frontend Docker image
+build-frontend:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t $FRONTEND_IMAGE:latest -f frontend/Dockerfile .
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker push $FRONTEND_IMAGE:latest
+  only:
+    - main
+
+# Build and push backend Docker image
+build-backend:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t $BACKEND_IMAGE:latest -f ml_service/Dockerfile .
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker push $BACKEND_IMAGE:latest
+  only:
+    - main
+
+# Simple deploy
+deploy:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Deploying to server..."
+    # Add simple deployment script or commands here
+  only:
+    - main
