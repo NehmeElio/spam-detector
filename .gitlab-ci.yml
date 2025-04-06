@@ -66,6 +66,6 @@ deploy:
     # Update your Koyeb backend app with the latest backend image
     - koyeb apps deploy --app spam-detector-backend --image $BACKEND_IMAGE_NAME
     # Update your Koyeb frontend app with the latest frontend image
-    - koyeb apps deploy --app spam-detector-backend --image $FRONTEND_IMAGE_NAME
+    - koyeb apps deploy --app spam-detector-frontend--image $FRONTEND_IMAGE_NAME
   only:
     - main  # Only deploy from the main branch (change this if needed)
