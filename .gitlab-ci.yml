@@ -57,15 +57,13 @@ build-backend:
 
 deploy:
   stage: deploy
-  image: koyeb/koyeb-cli:latest  # Koyeb CLI to deploy to Koyeb
+  image: koyeb/koyeb-cli:latest
   script:
     # Login to Koyeb with the API key
-    - koyeb login --api-key $KOYEB_API_KEY  # Login using the API key
+    - koyeb login --api-key $KOYEB_API_KEY
     
-    # Update your Koyeb backend app with the latest backend image
-    - koyeb apps deploy --app spam-detector-backend --image $BACKEND_IMAGE_NAME
-    
-    # Update your Koyeb frontend app with the latest frontend image
-    - koyeb apps deploy --app spam-detector-frontend --image $FRONTEND_IMAGE_NAME
+    # Update existing Koyeb apps with the latest images
+    - koyeb service redeploy spam-detector-backend/backend
+    - koyeb service redeploy spam-detector-frontend/frontend
   only:
-    - main 
+    - main
