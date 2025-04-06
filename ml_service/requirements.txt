@@ -3,3 +3,5 @@ uvicorn==0.18.3
 mlflow==2.20.3
 scikit-learn==1.6.1
 pytest
+prometheus_fastapi_instrumentator
+logging
