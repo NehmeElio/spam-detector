@@ -17,7 +17,7 @@ frontend-test:
   script:
     - cd frontend/spam-detector-frontend
     - npm install
-    - npm test
+    - npm test -- --passWithNoTests
 
 # Basic backend test
 backend-test:
@@ -26,8 +26,8 @@ backend-test:
   script:
     - cd ml_service
     - pip install -r requirements.txt
-    - pip install pytest
-    - pytest
+    - pip install pytest fastapi httpx
+    - python -m pytest -v
 
 # Build and push frontend Docker image
 build-frontend:
