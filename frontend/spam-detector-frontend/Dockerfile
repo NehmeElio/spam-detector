@@ -1,5 +1,5 @@
 # Step 1: Build the React app
-FROM node:22-slim as build
+FROM node:16-slim as build
 
 # Set the working directory inside the container
 WORKDIR /app
