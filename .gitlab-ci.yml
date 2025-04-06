@@ -65,7 +65,12 @@ deploy:
     # Check if the file is actually a binary, not an HTML page
     - export PATH="/root/.koyeb/bin:$PATH"
     # Verify that koyeb is available
-    - koyeb --help
+    - mkdir -p ~/.koyeb
+    - |
+      echo "api_key: \"$KOYEB_API_KEY\"" > ~/.koyeb/koyeb.yaml
+    # Verify Koyeb CLI installation
+    # Verify Koyeb CLI installation
+    - koyeb --help 
  # This will verify if the Koyeb CLI is accessible
   script:
     # Login to Koyeb with the API key
